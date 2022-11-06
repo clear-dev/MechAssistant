@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MechAssistant", "MechAssistant\MechAssistant.csproj", "{F834261E-E8C1-496C-84E2-66485E0CEA2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F834261E-E8C1-496C-84E2-66485E0CEA2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F834261E-E8C1-496C-84E2-66485E0CEA2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F834261E-E8C1-496C-84E2-66485E0CEA2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F834261E-E8C1-496C-84E2-66485E0CEA2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8F42FBF-AA88-4680-AA18-49F6C19F4DE9}
+	EndGlobalSection
+EndGlobal
