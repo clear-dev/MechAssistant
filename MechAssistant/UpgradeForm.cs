@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MechAssistant.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,10 @@ namespace MechAssistant
             Models.Upgrade up = Form1.Upgrades[upgrade];
             for (int i = 0; i < up.Options.Count; i++)
             {
-                Button button = new Button();
+                UpgradeButton button = new(up);
+                button.num = i;
+                button.Tag = upgrade;
+                button.Click += ((Form1)Form1.ActiveForm).Upgrade_Process;
                 button.Width = ClientSize.Width - 10;
                 button.Height = 30;
                 button.Left = ClientSize.Width - button.Width / 2;

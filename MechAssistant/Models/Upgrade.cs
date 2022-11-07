@@ -8,6 +8,7 @@ namespace MechAssistant.Models
 {
     internal class Upgrade
     {
+        public string Name { get; set; }
         public int Markup { get; set; }
         public List<int> Options { get; set; }
     }

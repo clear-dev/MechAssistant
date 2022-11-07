@@ -37,7 +37,7 @@
             this.nameBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.UpgradeFlow = new System.Windows.Forms.FlowLayoutPanel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.logTextBox = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -126,20 +126,23 @@
             this.UpgradeFlow.Size = new System.Drawing.Size(776, 204);
             this.UpgradeFlow.TabIndex = 7;
             // 
-            // richTextBox1
+            // logTextBox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(359, 342);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(100, 96);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.logTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.logTextBox.Location = new System.Drawing.Point(245, 307);
+            this.logTextBox.Name = "logTextBox";
+            this.logTextBox.ReadOnly = true;
+            this.logTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.logTextBox.Size = new System.Drawing.Size(327, 131);
+            this.logTextBox.TabIndex = 0;
+            this.logTextBox.Text = "";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.UpgradeFlow);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -163,6 +166,6 @@
         private Label label2;
         private CheckBox isMech;
         private FlowLayoutPanel UpgradeFlow;
-        private RichTextBox richTextBox1;
+        private RichTextBox logTextBox;
     }
 }
