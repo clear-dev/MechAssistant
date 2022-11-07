@@ -18,17 +18,17 @@ namespace MechAssistant
             InitializeComponent();
             Text = upgrade;
             Models.Upgrade up = Form1.Upgrades[upgrade];
-            for (int i = 0; i < up.Options.Count; i++)
+            foreach (var item in up.Options)
             {
                 UpgradeButton button = new(up);
-                button.num = i;
+                button.num = item.Key;
                 button.Tag = upgrade;
                 button.Click += ((Form1)Form1.ActiveForm).Upgrade_Process;
                 button.Width = ClientSize.Width - 10;
                 button.Height = 30;
                 button.Left = ClientSize.Width - button.Width / 2;
                 button.Top = ClientSize.Height - button.Height / 2;
-                button.Text = $"{upgrade} {i+1}";
+                button.Text = $"{upgrade} {item.Key}";
                 flowLayout.Controls.Add(button);
                 button.Anchor = AnchorStyles.None;
             }

@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.UpgradeFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.logTextBox = new System.Windows.Forms.RichTextBox();
+            this.resetButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -136,12 +137,23 @@
             this.logTextBox.Size = new System.Drawing.Size(327, 131);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
+            this.logTextBox.WordWrap = false;
+            // 
+            // resetButton
+            // 
+            this.resetButton.Location = new System.Drawing.Point(713, 415);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(75, 23);
+            this.resetButton.TabIndex = 8;
+            this.resetButton.Text = "Reset";
+            this.resetButton.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.resetButton);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.UpgradeFlow);
             this.Controls.Add(this.groupBox1);
@@ -167,5 +179,6 @@
         private CheckBox isMech;
         private FlowLayoutPanel UpgradeFlow;
         private RichTextBox logTextBox;
+        private Button resetButton;
     }
 }

@@ -27,6 +27,7 @@ namespace MechAssistant
             vehBox.TextChanged += VehicleChange;
             plateBox.TextChanged += PlateChange;
             isMech.CheckedChanged += IsMechChange;
+            resetButton.Click += ResetClick;
             UpdateLog();
         }
 
@@ -48,13 +49,19 @@ namespace MechAssistant
         internal void Upgrade_Process(object? sender, EventArgs e)
         {
             UpgradeButton btn = (UpgradeButton)sender;
+            if (btn.Parent != UpgradeFlow) ((Form)btn.Parent.Parent).Close();
             if (Log.Active.ContainsKey(btn.upgrade))
             {
                 Log.Active[btn.upgrade] = btn.num;
             }
             else
             {
-                Log.Active.TryAdd(btn.upgrade, btn.num);
+                Log.Active.Add(btn.upgrade, btn.num);
+            }
+            if (btn.upgrade.Multi)
+            {
+                Log.Multi.TryAdd(btn.upgrade, new());
+                if (!Log.Multi[btn.upgrade].Contains(btn.num)) Log.Multi[btn.upgrade].Add(btn.num);
             }
             UpdateLog();
         }
@@ -82,6 +89,14 @@ namespace MechAssistant
         private void IsMechChange(object? sender, EventArgs e)
         {
             Log.Mech = ((CheckBox)sender).Checked;
+            UpdateLog();
+        }
+        private void ResetClick(object? sender, EventArgs e)
+        {
+            nameBox.Clear();
+            vehBox.Clear();
+            plateBox.Clear();
+            Log = new();
             UpdateLog();
         }
     }

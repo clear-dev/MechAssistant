@@ -11,14 +11,15 @@ namespace MechAssistant.Models
         public string Name = "";
         public string Vehicle = "";
         public string Plate = "";
-        public Dictionary<Upgrade, int> Active = new();
+        public Dictionary<Upgrade, string> Active = new();
+        public Dictionary<Upgrade, List<string>> Multi = new();
         public int Total = 0;
         public bool Mech = false;
 
         public override string ToString()
         {
             return 
-$@"```Customer Name: {Name}
+$@"```Customer Name: {Name} {(Mech ? "[MECH]" : "")}
 Vehicle | [Make/Model]: {Vehicle}
 Plate: {Plate}
 Upgrades Purchased: {FormatUpgrades()}
@@ -32,7 +33,7 @@ SHOP: Tuners```
             Total = 0;
             foreach (var item in Active)
             {
-                Total += item.Key.Options[item.Value] + (Mech == false ? item.Key.Markup : 0);
+                Total += item.Key.Options[item.Value.ToString()] + (Mech == false ? item.Key.Markup : 0);
             }
             return Total;
         }
@@ -46,7 +47,16 @@ SHOP: Tuners```
                 i++;
                 string suffix = ", ";
                 if (i == Active.Count) suffix = "";
-                ret += $"{item.Key.Name}{suffix}";
+                string prefix = "";
+                if (Multi.ContainsKey(item.Key))
+                {
+                    for (int o = 0; o < Multi[item.Key].Count; o++)
+                    {
+                        var mult = Multi[item.Key][o];
+                        prefix += $"{mult}{(o + 1 == Multi[item.Key].Count ? " " : "/")}";
+                    }
+                }
+                ret += $"{prefix}{item.Key.Name}{suffix}";
             }
             return ret;
         }

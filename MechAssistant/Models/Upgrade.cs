@@ -10,6 +10,7 @@ namespace MechAssistant.Models
     {
         public string Name { get; set; }
         public int Markup { get; set; }
-        public List<int> Options { get; set; }
+        public bool Multi { get; set; } = false;
+        public Dictionary<string, int> Options { get; set; } = new();
     }
 }

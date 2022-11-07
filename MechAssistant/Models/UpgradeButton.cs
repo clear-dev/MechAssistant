@@ -9,7 +9,7 @@ namespace MechAssistant.Models
     internal class UpgradeButton : Button
     {
         public Upgrade upgrade;
-        public int num;
+        public string num = "1";
         public UpgradeButton(Upgrade up) : base()
         {
             upgrade = up;
