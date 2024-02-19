@@ -7,49 +7,91 @@ namespace MechAssistant
 {
     public partial class Form1 : Form
     {
-        internal static Dictionary<string, Models.Upgrade>? Upgrades;
+        internal static Dictionary<string, Category>? Categories;
         internal Log Log = new();
+        internal static string ShopName = Program.Configuration.GetSection("Settings").GetSection("Shop").Get<string>();
         public Form1()
         {
             InitializeComponent();
-            Upgrades = Program.Configuration.GetSection("Upgrades").Get<Dictionary<string, Models.Upgrade>>();
-            foreach (var upgrade in Upgrades)
+            Categories = Program.Configuration.GetSection("Upgrades").Get<Dictionary<string, Category>>();
+            foreach (var cat in Categories)
             {
-                upgrade.Value.Name = upgrade.Key;
-                UpgradeButton button = new(upgrade.Value);
-                button.Click += Upgrade_Click;
-                button.Tag = upgrade.Key;
-                button.Text = upgrade.Key;
-                button.Size = new(100, 30);
-                UpgradeFlow.Controls.Add(button);
+                var section = Program.Configuration.GetSection("Upgrades").GetSection(cat.Key).Get<Dictionary<string, Upgrade>>();
+                cat.Value.Upgrades = section;
+                cat.Value.Name = cat.Key;
+                TabPage tab = new(cat.Key);
+                upgradeTab.Controls.Add(tab);
+                FlowLayoutPanel inner = new();
+                inner.FlowDirection = FlowDirection.LeftToRight;
+                inner.Parent = tab;
+                inner.Dock = DockStyle.Fill;
+                inner.BorderStyle = BorderStyle.FixedSingle;
+                cat.Value.Page = inner;
+                foreach (var upgrade in section)
+                {
+                    upgrade.Value.Name = upgrade.Key;
+                    UpgradeButton button = new(upgrade.Value);
+                    button.MouseUp += Upgrade_Click;
+                    button.Tag = upgrade.Key;
+                    button.cat = cat.Value;
+                    button.Text = upgrade.Key;
+                    button.Size = new(100, 30);
+                    inner.Controls.Add(button);
+                }
             }
             nameBox.TextChanged += NameChange;
             vehBox.TextChanged += VehicleChange;
             plateBox.TextChanged += PlateChange;
             isMech.CheckedChanged += IsMechChange;
             resetButton.Click += ResetClick;
+            copyButton.Click += CopyButton_Click;
             UpdateLog();
+        }
+
+        private void CopyButton_Click(object? sender, EventArgs e)
+        {
+            Clipboard.SetText(Log.ToString());
         }
 
         private void Upgrade_Click(object? sender, EventArgs e)
         {
             if (sender is null) throw new ArgumentNullException(nameof(sender));
-            string upgradeKey = ((UpgradeButton)sender).Tag.ToString();
-            if (Upgrades[upgradeKey] is null) throw new NullReferenceException(upgradeKey);
-            if (Upgrades[upgradeKey].Options.Count <= 1)
+            UpgradeButton? sndr = sender as UpgradeButton;
+            string upgradeKey = sndr.Tag.ToString();
+            if (sndr?.cat is null) throw new NullReferenceException(upgradeKey);
+            Category cat = sndr.cat;
+            var upgrades = cat.Upgrades;
+            Upgrade upgrade = upgrades[upgradeKey];
+            MouseEventArgs mouseEvent = (MouseEventArgs)e;
+            if (mouseEvent.Button == MouseButtons.Right)
             {
-                Upgrade_Process(sender, e);
-                return;
+                if (Log.Active.ContainsKey(upgrade))
+                {
+                    Log.Active.Remove(upgrade);
+                }
+                if (Log.Multi.ContainsKey(upgrade))
+                {
+                    Log.Multi.Remove(upgrade);
+                }
+                UpdateLog();
             }
-            UpgradeForm upgradeForm = new UpgradeForm(upgradeKey);
-            upgradeForm.StartPosition = FormStartPosition.CenterParent;
-            upgradeForm.ShowDialog();
+            else if (mouseEvent.Button == MouseButtons.Left)
+            {
+                if (upgrades[upgradeKey].Options.Count <= 1)
+                {
+                    Upgrade_Process(sender, e);
+                    return;
+                }
+                UpgradeForm upgradeForm = new UpgradeForm(cat.Upgrades[upgradeKey]);
+                upgradeForm.StartPosition = FormStartPosition.CenterParent;
+                upgradeForm.ShowDialog();
+            }
         }
 
         internal void Upgrade_Process(object? sender, EventArgs e)
         {
             UpgradeButton btn = (UpgradeButton)sender;
-            if (btn.Parent != UpgradeFlow) ((Form)btn.Parent.Parent).Close();
+            if (btn.Parent != btn.cat?.Page) ((Form)btn.Parent.Parent).Close();
             if (Log.Active.ContainsKey(btn.upgrade))
             {
                 Log.Active[btn.upgrade] = btn.num;
@@ -63,6 +105,7 @@ namespace MechAssistant
                 Log.Multi.TryAdd(btn.upgrade, new());
                 if (!Log.Multi[btn.upgrade].Contains(btn.num)) Log.Multi[btn.upgrade].Add(btn.num);
             }
+            //btn.BackColor = Color.Red;
             UpdateLog();
         }
 
@@ -96,6 +139,7 @@ namespace MechAssistant
             nameBox.Clear();
             vehBox.Clear();
             plateBox.Clear();
+            isMech.Checked = false;
             Log = new();
             UpdateLog();
         }

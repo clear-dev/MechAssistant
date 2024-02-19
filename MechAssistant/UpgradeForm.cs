@@ -13,22 +13,21 @@ namespace MechAssistant
 {
     public partial class UpgradeForm : Form
     {
-        public UpgradeForm(string upgrade)
+        internal UpgradeForm(Upgrade upgrade)
         {
             InitializeComponent();
-            Text = upgrade;
-            Models.Upgrade up = Form1.Upgrades[upgrade];
-            foreach (var item in up.Options)
+            Text = upgrade.Name;
+            foreach (var item in upgrade.Options)
             {
-                UpgradeButton button = new(up);
+                UpgradeButton button = new(upgrade);
                 button.num = item.Key;
-                button.Tag = upgrade;
-                button.Click += ((Form1)Form1.ActiveForm).Upgrade_Process;
+                button.Tag = upgrade.Name;
+                button.MouseUp += ((Form1)Form1.ActiveForm).Upgrade_Process;
                 button.Width = ClientSize.Width - 10;
                 button.Height = 30;
                 button.Left = ClientSize.Width - button.Width / 2;
                 button.Top = ClientSize.Height - button.Height / 2;
-                button.Text = $"{upgrade} {item.Key}";
+                button.Text = $"{upgrade.Name} {item.Key}";
                 flowLayout.Controls.Add(button);
                 button.Anchor = AnchorStyles.None;
             }

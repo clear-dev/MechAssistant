@@ -36,9 +36,10 @@
             this.vehBox = new System.Windows.Forms.TextBox();
             this.nameBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.UpgradeFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.logTextBox = new System.Windows.Forms.RichTextBox();
             this.resetButton = new System.Windows.Forms.Button();
+            this.upgradeTab = new System.Windows.Forms.TabControl();
+            this.copyButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,22 +120,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
             // 
-            // UpgradeFlow
-            // 
-            this.UpgradeFlow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.UpgradeFlow.Location = new System.Drawing.Point(12, 97);
-            this.UpgradeFlow.Name = "UpgradeFlow";
-            this.UpgradeFlow.Size = new System.Drawing.Size(776, 204);
-            this.UpgradeFlow.TabIndex = 7;
-            // 
             // logTextBox
             // 
             this.logTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.logTextBox.Location = new System.Drawing.Point(245, 307);
+            this.logTextBox.Location = new System.Drawing.Point(170, 307);
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
             this.logTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.logTextBox.Size = new System.Drawing.Size(327, 131);
+            this.logTextBox.Size = new System.Drawing.Size(487, 139);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "";
             this.logTextBox.WordWrap = false;
@@ -148,14 +141,32 @@
             this.resetButton.Text = "Reset";
             this.resetButton.UseVisualStyleBackColor = true;
             // 
+            // upgradeTab
+            // 
+            this.upgradeTab.Location = new System.Drawing.Point(12, 97);
+            this.upgradeTab.Name = "upgradeTab";
+            this.upgradeTab.SelectedIndex = 0;
+            this.upgradeTab.Size = new System.Drawing.Size(776, 204);
+            this.upgradeTab.TabIndex = 9;
+            // 
+            // copyButton
+            // 
+            this.copyButton.Location = new System.Drawing.Point(12, 415);
+            this.copyButton.Name = "copyButton";
+            this.copyButton.Size = new System.Drawing.Size(75, 23);
+            this.copyButton.TabIndex = 10;
+            this.copyButton.Text = "Copy";
+            this.copyButton.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.copyButton);
+            this.Controls.Add(this.upgradeTab);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.logTextBox);
-            this.Controls.Add(this.UpgradeFlow);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -177,8 +188,9 @@
         private Label label3;
         private Label label2;
         private CheckBox isMech;
-        private FlowLayoutPanel UpgradeFlow;
         private RichTextBox logTextBox;
         private Button resetButton;
+        private TabControl upgradeTab;
+        private Button copyButton;
     }
 }

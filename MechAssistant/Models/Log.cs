@@ -24,7 +24,7 @@ Vehicle | [Make/Model]: {Vehicle}
 Plate: {Plate}
 Upgrades Purchased: {FormatUpgrades()}
 Price Charged: ${string.Format("{0:n0}", TotalPrice())}
-SHOP: Tuners```
+SHOP: {Form1.ShopName}```
 ";
         }
 
@@ -33,7 +33,7 @@ SHOP: Tuners```
             Total = 0;
             foreach (var item in Active)
             {
-                Total += item.Key.Options[item.Value.ToString()] + (Mech == false ? item.Key.Markup : 0);
+                Total += ((item.Key.Options[item.Value.ToString()]) + (Mech == false ? item.Key.Markup : 0)) * (Multi.ContainsKey(item.Key) ? Multi[item.Key].Count : 1);
             }
             return Total;
         }
