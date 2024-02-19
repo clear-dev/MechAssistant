@@ -1,0 +1,3 @@
+This was created for the old version of CityLife so it will therefore contain the old prices and cater for the old system (I have no clue if this has changed)
+To edit, simply go into appsettings.json and change as you like. this file follows the hierarchy: Category, Tab, Modification, with modification containing Markup (customer mark-up) and options containing the  different levels at mechanic cost.
+Modifications also allow for the flag "Multi" which will allow multiple of this mod to be added for example a front and rear bumper, and these will be added to the log in a neat comma separated format.
